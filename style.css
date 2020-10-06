@@ -1,21 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+
 * {
   box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Quicksand", sans-serif;
 }
 
 .container-fluid header,
 .container-fluid footer {
   background-color: #f3e9f1;
-  /* padding: 0; */
+  /* padding: 0;
+  margin: 0; */
 }
 
 .container {
   text-align: center;
-}
-
-header {
-  display: flex;
-  align-items: center;
-  width: 100%;
 }
 
 .logo {
