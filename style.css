@@ -43,12 +43,16 @@ body {
   padding: 10px;
   border: none;
   border: 2px solid #fff;
-  transform: scale(1);
-  transition: all 0.3s ease;
 }
 
 .card:hover {
   background-color: #f2f2f2;
+}
+
+.card-img-top,
+.product-img,
+.embed-responsive {
+  object-fit: cover;
 }
 
 a {
@@ -64,19 +68,19 @@ a:hover {
   margin: 30px;
 }
 
-/* .colors-list {
+.colors-list {
   list-style-type: none;
   padding: 0;
 }
 
 .colors-list li {
-  display: inline-block;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 50%;
-  border: 2px solid rgb(175, 173, 173);
+  cursor: pointer;
 }
 
-.colors-list li.selected {
-  border: 2px solid #333;
-} */
+.colors-list li:hover {
+  background: #f3e9f1;
+}
+
+.colors-list li.active {
+  background: #8d7c8a;
+}

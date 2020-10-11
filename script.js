@@ -1,4 +1,4 @@
-const $cart = document.getElementById("cart");
+const $cartBtn = document.getElementById("cart-btn");
 const $itemCard = document.getElementById("item-card");
 const $addToCartBtn = document.getElementById("add-to-cart");
 
@@ -13,12 +13,12 @@ fetch("http://localhost:3000/api/teddies")
         ) => `<a class="card col-12 col-md-6 col-lg-4" href="/pages/product.html?id=${
           item._id
         }">
-    <figure>
+      <figure class="embed-responsive embed-responsive-4by3">
           <img
-        class="card-img-top"
-        src="${item.imageUrl}"
-      />
-    </figure>
+          class="card-img-top embed-responsive-item"
+          src="${item.imageUrl}"
+        />
+      </figure>
     <div class="card-body">
     <h3 class="card-title">${item.name}</h3>
     <p class="price">${format(item.price)}</p>
@@ -28,13 +28,3 @@ fetch("http://localhost:3000/api/teddies")
       )
       .join("");
   });
-
-// Récupérer l'ID pour afficher la page du produit correspondant
-
-// Ajouter l'item au panier
-// function addToCart() {
-
-// }
-
-// // Event Listeners
-// $addToCartBtn.addEventListener("click", addToCart);
