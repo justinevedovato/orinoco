@@ -37,10 +37,21 @@
       </header>
 
       <!-- MAIN CONTENT -->
-      <main class="container">
+      <main class="container m-5">
         <div class="row">
+          <!-- PANIER -->
+          <h1 class="col-12 text-center h2 mb-5">Mon panier:</h1>
+
+          <div class="container col-12 text-center" id="cart-list">
+            <!-- Le panier va ici -->
+            <p>Chargement...</p>
+          </div>
+          <div class="d-flex flex-row-reverse">
+            <p class="h5 m-5" id="total"></p>
+          </div>
+
           <!-- FORMULAIRE -->
-          <div class="col-5 text-center">
+          <div class="col-12 text-center">
             <form>
               <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
@@ -76,11 +87,6 @@
               </div>
               <button type="submit" class="btn btn-info m-3">Submit</button>
             </form>
-          </div>
-
-          <!-- PANIER -->
-          <div class="col-7 text-center bg-light" id="cart-list">
-            <!-- Le panier va ici -->
           </div>
         </div>
       </main>

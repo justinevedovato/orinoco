@@ -68,17 +68,17 @@ fetch("http://localhost:3000/api/teddies/" + id)
       });
     });
 
-    // LOCAL STORAGE
-    let cart = []; // Démarre avec un array vide
-
-    // Vérifie si le Local Storage comporte des items, si oui, les merge à l'array "cart":
-    if (localStorage.getItem("cart") !== null) {
-      let retrievedItem = localStorage.getItem("cart");
-      cart = [...cart, ...JSON.parse(retrievedItem)];
-    }
-
     const $addToCartBtn = document.getElementById("add-to-cart");
     const $msg = document.getElementById("message");
+
+    // LOCAL STORAGE
+    let cart = []; // Démarre avec un array vide
+    let retrievedItem = localStorage.getItem("cart");
+
+    // Vérifie si le Local Storage comporte des items, si oui, les ajoute à l'array "cart":
+    if (retrievedItem !== null) {
+      cart = JSON.parse(retrievedItem);
+    }
 
     // Crée le produit, l'ajoute à l'array "cart" et sauvegarde l'array dans le Local Storage:
     function addToCart() {
