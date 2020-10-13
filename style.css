@@ -51,7 +51,8 @@ body {
 
 .card-img-top,
 .product-img,
-.embed-responsive {
+.embed-responsive,
+.img-fluid {
   object-fit: cover;
 }
 
@@ -83,4 +84,14 @@ a:hover {
 
 .colors-list li.active {
   background: #8d7c8a;
+}
+
+.remove-btn {
+  cursor: pointer;
+  color: #999;
+}
+
+.remove-btn:hover {
+  color: #444;
+  font-size: 1.1rem;
 }
