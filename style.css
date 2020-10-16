@@ -95,3 +95,8 @@ a:hover {
   color: #444;
   font-size: 1.1rem;
 }
+
+.checkout-form {
+  width: 40vw;
+  margin: 30px auto 100px;
+}

@@ -2,13 +2,13 @@ const $cartList = document.getElementById("cart-list");
 const $total = document.getElementById("total");
 const $quantity = document.getElementById("quantity");
 
-// Formater le prix
+// Formate le prix en euros
 function format(p) {
   let price = p / 100;
   return price.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
 }
 
-// Récupérer les articles depuis le Local Storage pour charger le panier
+// Récupére les articles depuis le Local Storage pour charger le panier
 let retrievedItems = JSON.parse(localStorage.getItem("cart"));
 
 // Calcule le nombre d'articles dans le panier:
@@ -17,8 +17,9 @@ let totalItems = Object.values(retrievedItems).reduce(
   0
 );
 
-// Calcule le total du montant des articles du panier:
 let totalPrice = 0;
+
+// Affiche l'entête du tableau du panier
 let productHTML = `
   <div class="row mx-1 mx-xl-5">
     <div class=" col-2 col-md-1"></div>
@@ -34,10 +35,10 @@ let productHTML = `
     <span class="col-1"></span>
   </div>`;
 
-// Merge les articles identiques et itère la quantité:
+// Affiche chaque article du panier
 for (let id in retrievedItems) {
   let product = retrievedItems[id];
-  totalPrice += product.price * product.quantity;
+  totalPrice += product.price * product.quantity; // Calcule montant total
   productHTML += `
     <div class="row mx-1 mx-xl-5">
     <figure class="embed-responsive embed-responsive-1by1 col-2 col-md-1">

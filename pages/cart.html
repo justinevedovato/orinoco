@@ -17,6 +17,7 @@
       crossorigin="anonymous"
     ></script>
     <script src="/scripts/cart.js" defer></script>
+    <script src="/scripts/form.js" defer></script>
 
     <title>Orinoco - Mon panier</title>
   </head>
@@ -47,49 +48,80 @@
             <p>Chargement...</p>
           </div>
         </div>
-          <div class="d-flex flex-row-reverse p-4 bg-light rounded">
-            <p class="col-4 m-0" id="total"><!-- Le total s'affiche ici --></p>
+        <div class="d-flex flex-row-reverse p-4 bg-light rounded">
+          <p class="col-4 m-0" id="total"><!-- Le total s'affiche ici --></p>
+        </div>
+
+        <!-- FORMULAIRE -->
+
+        <form class="checkout-form text-left">
+          <div class="form-row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="first-name">Prénom</label>
+                <input
+                  type="text"
+                  name="first-name"
+                  id="first-name"
+                  class="form-control"
+                  required
+                />
+                <div class="invalid-feedback">Ce champ est incorrect!</div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="last-name">Nom</label>
+                <input
+                  type="text"
+                  name="last-name"
+                  id="last-name"
+                  class="form-control"
+                  required
+                />
+                <div class="invalid-feedback">Ce champ est incorrect!</div>
+              </div>
+            </div>
           </div>
 
-          <!-- FORMULAIRE -->
-          <div class="col-12 text-center mt-4">
-            <form>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                />
-                <small id="emailHelp" class="form-text text-muted"
-                  >We'll never share your email with anyone else.</small
-                >
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="exampleInputPassword1"
-                  placeholder="Password"
-                />
-              </div>
-              <div class="form-check">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="exampleCheck1"
-                />
-                <label class="form-check-label" for="exampleCheck1"
-                  >Check me out</label
-                >
-              </div>
-              <button type="submit" class="btn btn-info m-3">Submit</button>
-            </form>
+          <div class="form-group">
+            <label for="address">Adresse</label>
+            <input
+              type="text"
+              name="address"
+              id="address"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Ce champ est incorrect!</div>
           </div>
-        </div>
+          <div class="form-group">
+            <label for="city">Code Postal - Ville</label>
+            <input
+              type="text"
+              name="city"
+              id="city"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Ce champ est incorrect!</div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Ce champ est incorrect!</div>
+          </div>
+          <div class="text-center m-4">
+            <button type="submit" class="btn btn-info">Continuer</button>
+          </div>
+        </form>
       </main>
 
       <!-- FOOTER -->
