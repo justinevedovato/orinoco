@@ -2,12 +2,6 @@ const $cartList = document.getElementById("cart-list");
 const $total = document.getElementById("total");
 const $quantity = document.getElementById("quantity");
 
-// Formate le prix en euros
-function format(p) {
-  let price = p / 100;
-  return price.toLocaleString("fr-FR", { style: "currency", currency: "EUR" });
-}
-
 // Récupére les articles depuis le Local Storage pour charger le panier
 let retrievedItems = JSON.parse(localStorage.getItem("cart"));
 

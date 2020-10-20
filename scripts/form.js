@@ -6,69 +6,80 @@ const $city = document.getElementById("city");
 const $email = document.getElementById("email");
 const $allInputs = document.querySelectorAll(".form-control");
 
-let products = [];
+let productsID = [];
+let order = "";
 
 for (let item in retrievedItems) {
-  let order = {
-    article: retrievedItems[item].id,
-    quantity: retrievedItems[item].quantity,
-  };
-  products.push(order);
+  order = retrievedItems[item].id;
+  productsID.push(order);
 }
 
-$form.addEventListener("submit", function (e) {
-  // if (!$form.checkValidity()) {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  //   //Récupére les données utilisateur
-  // } else {
+// Envoi du formulaire
+function submitForm(e) {
+  for (let input of $allInputs) {
+    if (input.classList.contains("is-invalid")) {
+      e.preventDefault(); // Bloque l'envoi si un des champs est invalide
+    }
+  }
+  // Crée la fiche contact
   let userInput = {
-    firstname: $firstName.value,
-    lastname: $lastName.value,
+    firstName: $firstName.value,
+    lastName: $lastName.value,
     address: $address.value,
     city: $city.value,
     email: $email.value,
   };
+  // POST le tableau de données vers le serveur
 
-  e.preventDefault(); // à retirer ensuite pour aller sur la page de confirmation
-  // console.log(JSON.stringify(userInput) + JSON.stringify(products));
-  // }
-});
+  let orderInfos = {
+    contact: userInput,
+    products: productsID,
+  };
 
-// Vérifier que les champs ne contiennent pas de nombres
-function checkDigits(e) {
-  let regex = /^[\p{L}-]+$/iu;
-  if (e.target.value.match(regex)) {
-    e.target.classList.add("is-valid");
-    e.target.classList.remove("is-invalid");
+  fetch("http://localhost:3000/api/teddies/order", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      contact: userInput,
+      products: productsID,
+    }),
+  })
+    .then((response) => response.json())
+    .then((result) => {
+      console.log("Success:", result);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+// Valide (ou non) chaque champ de formulaire
+function validField(el, regex) {
+  if (el.value.match(regex)) {
+    el.classList.add("is-valid");
+    el.classList.remove("is-invalid");
   } else {
-    e.target.classList.add("is-invalid");
+    el.classList.add("is-invalid");
+    el.classList.remove("is-valid");
   }
 }
 
-function checkAddress(e) {
-  let regex = /^[\p{L}1-9,.-]+$/iu;
-  if (e.target.value.match(regex)) {
-    e.target.classList.add("is-valid");
-    e.target.classList.remove("is-invalid");
-  } else {
-    e.target.classList.add("is-invalid");
-  }
-}
-
-function checkEmail(e) {
-  let regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  if (e.target.value.match(regex)) {
-    e.target.classList.add("is-valid");
-    e.target.classList.remove("is-invalid");
-  } else {
-    e.target.classList.add("is-invalid");
-  }
-}
+// Regex pour les différents champs de formulaire
+const onlyLetters = /^[\p{L} -]+$/iu;
+const checkAddress = /^[\p{L}1-9, .-]+$/iu;
+const checkEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // Event Listeners
-$firstName.addEventListener("change", checkDigits);
-$lastName.addEventListener("change", checkDigits);
-$address.addEventListener("change", checkAddress);
-$city.addEventListener("change", checkAddress);
-$email.addEventListener("change", checkEmail);
+$firstName.addEventListener("change", (e) => validField(e.target, onlyLetters));
+$lastName.addEventListener("change", (e) => validField(e.target, onlyLetters));
+$address.addEventListener("change", (e) => validField(e.target, checkAddress));
+$city.addEventListener("change", (e) => validField(e.target, checkAddress));
+$email.addEventListener("change", (e) => validField(e.target, checkEmail));
+
+$form.addEventListener("submit", (e) => {
+  submitForm();
+  e.preventDefault(); // Juste le temps des tests
+});
