@@ -38,17 +38,6 @@ fetch("http://localhost:3000/api/teddies/" + id)
           </p>
         </div>`;
 
-    // Si aucun ID dans l'URL, envoi vers une éventuelle page d'erreur
-    if (!item._id) {
-      // document.location.href = "404.html";
-      $itemPage.innerHTML = `<div class="text-center m-2">
-  <p class="display-4">404</p>
-  <p class="h3">La page que vous recherchez n'existe pas!</p>
-  <a href="../index.html"
-    ><button class="btn btn-info m-3">Retour à l'accueil</button></a
-  >
-</div>`;
-    }
     // CHOIX DE L'OPTION
     // Ajouter la classe "selected" quand on selectionne une couleur, et déselectionne quand on choisit une autre couleur, ou qu'on re-clique sur la couleur en question pour le déselectionner
     const $colorElements = document.querySelectorAll(".colors-list li");
@@ -80,7 +69,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
     }
 
     // Crée le produit, l'ajoute à l'array "cart" et sauvegarde l'array dans le Local Storage:
-    function addToCart() {
+    $addToCartBtn.addEventListener("click", () => {
       let product = {
         id: item._id,
         name: item.name,
@@ -90,6 +79,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
       };
 
       // Vérifier si l'article est déjà dans le panier:
+      // Ici, la gestion de la quantité de chaque article a été mise en place pour approfondir l'exercice, mais ne sera pas prise en compte lors de l'envoi au serveur, qui n'a pas été prévu pour.
       if (cart[item._id]) {
         cart[item._id].quantity++; // Itérer la quantité si l'article est déjà dans le panier
       } else {
@@ -99,8 +89,18 @@ fetch("http://localhost:3000/api/teddies/" + id)
       // Sauvegarder le panier au localstorage
       localStorage.setItem("cart", JSON.stringify(cart));
       $msg.innerHTML = "L'article a bien été ajouté au panier";
-    }
-
-    // Event Listeners
-    $addToCartBtn.addEventListener("click", addToCart);
+    });
+  })
+  .catch((error) => {
+    console.log("Error:", error);
+    $itemPage.innerHTML = `
+      <div class="text-center m-2">
+      <p class="display-4">404</p>
+      <p class="h4">L'article que vous recherchez n'existe pas.</p>
+      <a href="../index.html">
+      <button class="btn btn-info m-3">Retour à l'accueil</button></a>
+      </div>
+      `;
   });
+
+// Event Listeners

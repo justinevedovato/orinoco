@@ -20,7 +20,7 @@
     <script src="/scripts/cart.js" defer></script>
     <script src="/scripts/form.js" defer></script>
 
-    <title>Orinoco - Mon panier</title>
+    <title>Orinoco - Panier</title>
   </head>
   <body>
     <!-- HEADER -->
@@ -42,20 +42,20 @@
       <main class="container mx-auto my-md-4">
         <div class="row">
           <!-- PANIER -->
-          <h1 class="col-12 text-center h3 mt-3 mb-5">Mon panier:</h1>
+          <h1 class="col-12 text-center h3 mt-3 mb-5">Votre panier</h1>
 
           <div class="container col-12 text-center" id="cart-list">
             <!-- Le panier va ici -->
             <p>Chargement...</p>
           </div>
         </div>
-        <div class="d-flex flex-row-reverse p-4 bg-light rounded">
-          <p class="col-4 m-0" id="total"><!-- Le total s'affiche ici --></p>
+        <div id="total">
+          <!-- Le total s'affiche ici -->
         </div>
-
+      
         <!-- FORMULAIRE -->
 
-        <form class="checkout-form text-left">
+        <form class="checkout-form text-left d-none">
           <div class="form-row">
             <div class="col-md-6">
               <div class="form-group">
@@ -120,7 +120,7 @@
             <div class="invalid-feedback">Ce champ est incorrect!</div>
           </div>
           <div class="text-center m-4">
-            <button type="submit" class="btn btn-info">Continuer</button>
+            <a href="confirmation.html"><button type="submit" class="btn btn-info">Continuer</button></a>
           </div>
         </form>
       </main>

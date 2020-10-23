@@ -9,6 +9,12 @@ const $allInputs = document.querySelectorAll(".form-control");
 let productsID = [];
 let order = "";
 
+// Affiche le formulaire s'il y a des articles dans le panier
+if (retrievedItems) {
+  $form.classList.remove("d-none");
+}
+
+// Récupérer l'ID des items du panier
 for (let item in retrievedItems) {
   order = retrievedItems[item].id;
   productsID.push(order);
@@ -29,13 +35,8 @@ function submitForm(e) {
     city: $city.value,
     email: $email.value,
   };
+
   // POST le tableau de données vers le serveur
-
-  let orderInfos = {
-    contact: userInput,
-    products: productsID,
-  };
-
   fetch("http://localhost:3000/api/teddies/order", {
     method: "POST",
     headers: {
@@ -49,7 +50,14 @@ function submitForm(e) {
   })
     .then((response) => response.json())
     .then((result) => {
-      console.log("Success:", result);
+      console.log("success:", result);
+      // Ne conserver que les infos produits et le numéro de commande pour ne pas conserver d'informations personnelles dans le local storage
+      let orderInfos = {
+        orderId: result.orderId,
+        products: result.products,
+      };
+      localStorage.setItem("orderInfos", JSON.stringify(orderInfos));
+      window.location.href = "confirmation.html";
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -81,5 +89,5 @@ $email.addEventListener("change", (e) => validField(e.target, checkEmail));
 
 $form.addEventListener("submit", (e) => {
   submitForm();
-  e.preventDefault(); // Juste le temps des tests
+  e.preventDefault();
 });

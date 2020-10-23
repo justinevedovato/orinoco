@@ -2,8 +2,17 @@ const $cartList = document.getElementById("cart-list");
 const $total = document.getElementById("total");
 const $quantity = document.getElementById("quantity");
 
-// Récupére les articles depuis le Local Storage pour charger le panier
+// Récupère les articles depuis le Local Storage pour charger le panier
 let retrievedItems = JSON.parse(localStorage.getItem("cart"));
+
+if (!retrievedItems) {
+  $cartList.innerHTML = `
+  <div class='bg-light p-5'>
+    <p>Vous n'avez pas d'articles dans le panier</p>
+    <a href="../index.html"><button class='btn btn-info mt-3'>Retour à l'accueil</button></a>
+  </div>
+  `;
+}
 
 // Calcule le nombre d'articles dans le panier:
 let totalItems = Object.values(retrievedItems).reduce(
@@ -64,13 +73,16 @@ for (let id in retrievedItems) {
 $cartList.innerHTML = productHTML;
 
 $total.innerHTML = `
-    <p class="h5"> Total: ${format(totalPrice)}</p>
+  <div class="d-flex flex-row-reverse p-4 bg-light rounded">
+    <p class="h5 col-4 m-0" id="total">Total: ${format(totalPrice)}</p>
     <p class="h6 m-0">(${totalItems} articles)
+  </div>
   `;
 
 // Supprime un article du panier (array "cart") et update localstorage
 const $removeBtns = document.querySelectorAll(".remove-btn");
 
+// Gestion de la quantité des articles, mais ne sera pas envoyée au serveur
 function removeItem(e) {
   let product = retrievedItems[e.target.dataset.id]; // Récuperer l'ID du produit ciblé
   product.quantity--;
