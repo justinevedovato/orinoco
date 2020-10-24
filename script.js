@@ -27,4 +27,15 @@ fetch("http://localhost:3000/api/teddies")
   </a>`
       )
       .join("");
+  })
+  // Dans le cas où l'API est inaccessible:
+  .catch((error) => {
+    console.error("Error: " + error);
+    $itemCard.innerHTML = `
+      <div class="text-center m-2 col-12 bg-light p-4">
+        <p class="h3 mb-3">404</p>
+        <p class="h5">Notre collection est pour le moment indisponible, merci de réessayer ultérieurement.</p>
+        <p class="h5">Veuillez nous excuser pour la gêne occasionnée.</p>
+        </div>
+      `;
   });

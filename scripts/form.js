@@ -76,8 +76,8 @@ function validField(el, regex) {
 }
 
 // Regex pour les différents champs de formulaire
-const onlyLetters = /^[\p{L} -]+$/iu;
-const checkAddress = /^[\p{L}1-9, .-]+$/iu;
+const onlyLetters = /^[\p{L} '-]+$/iu;
+const checkAddress = /^[0-9\p{L}, '.&-]+$/iu;
 const checkEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 // Event Listeners

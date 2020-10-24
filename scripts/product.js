@@ -8,9 +8,10 @@ let id = params.get("id");
 fetch("http://localhost:3000/api/teddies/" + id)
   .then((response) => response.json())
   .then((item) => {
+    document.title = item.name + " - Orinoco"; // affiche le nom du produit dans le titre de la page
     let colors = "";
     item.colors.forEach((color) => {
-      // récupère toutes les options de couleur de chaque article
+      // récupère et liste toutes les options de couleur de chaque article
       colors += `<li class="dropdown-item">${color}</li>`;
     });
 
@@ -91,8 +92,9 @@ fetch("http://localhost:3000/api/teddies/" + id)
       $msg.innerHTML = "L'article a bien été ajouté au panier";
     });
   })
+  // Affiche un message d'erreur si ID inexistant
   .catch((error) => {
-    console.log("Error:", error);
+    console.log("Error: ", error);
     $itemPage.innerHTML = `
       <div class="text-center m-2">
       <p class="display-4">404</p>
@@ -102,5 +104,3 @@ fetch("http://localhost:3000/api/teddies/" + id)
       </div>
       `;
   });
-
-// Event Listeners

@@ -7,6 +7,7 @@
 html,
 body {
   font-family: "Quicksand", sans-serif;
+  margin-bottom: 50px;
 }
 
 .container-fluid header,
@@ -98,7 +99,7 @@ a:hover {
 
 .checkout-form {
   width: 40vw;
-  margin: 30px auto 100px;
+  margin: 30px auto;
 }
 
 span {
