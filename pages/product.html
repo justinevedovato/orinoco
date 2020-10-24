@@ -10,15 +10,14 @@
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../style.css" />
 
     <script
       src="https://kit.fontawesome.com/684a8ea0fd.js"
       crossorigin="anonymous"
     ></script>
-
     <script src="/scripts/functions.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="/scripts/product.js" defer></script>
 
     <title>Orinoco - Boutique en ligne</title>
   </head>
@@ -26,9 +25,9 @@
     <!-- HEADER -->
     <div class="container-fluid">
       <header class="row">
-        <a href="index.html" class="col">
+        <a href="../index.html" class="col">
           <img
-            src="./img/logo.png"
+            src="../img/logo.png"
             alt="Logo de Orinoco, boutique en ligne"
             class="logo"
             id="cart-btn"
@@ -39,17 +38,12 @@
       </header>
 
       <!-- MAIN CONTENT -->
-      <main class="container">
-        <h1 class="m-5 display-4">Collection</h1>
-
-        <div class="row collection" id="item-card">
-          <p class="text-center col-12 mb-5">Chargement...</p>
-          <!-- JAVASCRIPT HERE -->
-        </div>
+      <main class="container item-page m-auto pt-5 p-3" id="item-page">
+        <!-- Le code de la page produit va ici  -->
       </main>
 
       <!-- FOOTER -->
-      <footer class="row fixed-bottom mt-5">
+      <footer class="row fixed-bottom">
         <div class="col pt-3">
           <ul class="list-inline text-center">
             <li class="list-inline-item text-center">

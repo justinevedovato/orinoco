@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: "Quicksand", sans-serif;
+  margin-bottom: 50px;
+}
+
+.container-fluid header,
+.container-fluid footer {
+  background-color: #f3e9f1;
+  /* padding: 0;
+  margin: 0; */
+}
+
+.container {
+  text-align: center;
+}
+
+.logo {
+  width: 230px;
+  margin: 10px;
+}
+
+.fa-shopping-cart {
+  font-size: 1.7rem;
+  padding: 12px 15px 10px 10px;
+  margin: 15px;
+  background-color: #ddc4d8;
+  border-radius: 5px;
+  margin-left: auto;
+}
+
+.fa-shopping-cart:hover {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.card {
+  padding: 10px;
+  border: none;
+  border: 2px solid #fff;
+}
+
+.card:hover {
+  background-color: #f2f2f2;
+}
+
+.card-img-top,
+.product-img,
+.embed-responsive,
+.img-fluid {
+  object-fit: cover;
+}
+
+a {
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.item-page {
+  margin: 30px;
+}
+
+.colors-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.colors-list li {
+  cursor: pointer;
+}
+
+.colors-list li:hover {
+  background: #f3e9f1;
+}
+
+.colors-list li.active {
+  background: #8d7c8a;
+}
+
+.remove-btn {
+  cursor: pointer;
+  color: #999;
+}
+
+.remove-btn:hover {
+  color: #444;
+  font-size: 1.1rem;
+}
+
+.checkout-form {
+  width: 40vw;
+  margin: 30px auto;
+}
+
+span {
+  color: #444;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+  .checkout-form {
+    width: 70vw;
+    margin: 15px auto 100px;
+  }
+}
