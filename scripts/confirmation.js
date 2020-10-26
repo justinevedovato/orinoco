@@ -24,3 +24,8 @@ $confirm.innerHTML = `
 
 // Vide le panier après la validation de la commande
 localStorage.removeItem("cart");
+
+// Les informations de commande disparaissent du local storage quand on quitte la page
+window.addEventListener("beforeunload", () => {
+  localStorage.removeItem("orderInfos");
+});

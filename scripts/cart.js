@@ -5,13 +5,19 @@ const $quantity = document.getElementById("quantity");
 // Récupère les articles depuis le Local Storage pour charger le panier
 let retrievedItems = JSON.parse(localStorage.getItem("cart"));
 
+// Affiche un message d'erreur si aucun article au panier, ou si tous les articles sont supprimés
 if (!retrievedItems) {
   $cartList.innerHTML = `
   <div class='bg-light p-5'>
     <p>Vous n'avez pas d'articles dans le panier</p>
-    <a href="../index.html"><button class='btn btn-info mt-3'>Retour à l'accueil</button></a>
+    <a href="../index.html">
+      <button class='btn btn-info mt-3'>Retour à l'accueil</button>
+    </a>
   </div>
   `;
+} else if (JSON.stringify(retrievedItems) == "{}") {
+  localStorage.removeItem("cart");
+  location.reload();
 }
 
 // Calcule le nombre d'articles dans le panier:

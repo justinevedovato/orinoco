@@ -9,53 +9,9 @@ fetch("http://localhost:3000/api/teddies/" + id)
   .then((response) => response.json())
   .then((item) => {
     document.title = item.name + " - Orinoco"; // affiche le nom du produit dans le titre de la page
-    let colors = "";
-    item.colors.forEach((color) => {
-      // récupère et liste toutes les options de couleur de chaque article
-      colors += `<li class="dropdown-item">${color}</li>`;
-    });
 
-    $itemPage.innerHTML = `<div class="row">
-          <img class="img-responsive product-img col-12 col-md-6" src="${
-            item.imageUrl
-          }" />
-          <div class="col-12 col-md-6">
-            <h1 class="mt-3 mt-md-1">${item.name}</h1>
-            <p class="price h5 m-5">${format(item.price)}</p>
-            <div class="dropdown m-5 colors-list">
-              <button class="btn btn-secondary dropdown-toggle" type="button" id="option-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Couleur
-                </button>
-                <ul class="dropdown-menu">${colors}</ul>
-            </div>
-            <button class="cart btn btn-info" id="add-to-cart">Ajouter au panier</button>
-            <p class="small m-3" id="message"></p>
-          </div>
-        </div>
-        <div class="row">
-          <h2 class="col-12 mt-4 mb-2 text-left h3">Description</h2>
-          <p class="text-justify p-3 mb-5">
-            ${item.description}
-          </p>
-        </div>`;
-
-    // CHOIX DE L'OPTION
-    // Ajouter la classe "selected" quand on selectionne une couleur, et déselectionne quand on choisit une autre couleur, ou qu'on re-clique sur la couleur en question pour le déselectionner
-    const $colorElements = document.querySelectorAll(".colors-list li");
-    const $optionBtn = document.getElementById("option-btn");
-
-    $colorElements.forEach(($colorElement) => {
-      $colorElement.addEventListener("click", (e) => {
-        const isSelected = e.target.classList.contains("active"); // vérifie les elements qui ont été selectionnés
-
-        $colorElements.forEach((el) => el.classList.remove("active")); // desélectionne tout ce qui a été auparavant selectionné pour ne selectionner qu'un seul item à chaque fois
-
-        if (!isSelected) {
-          e.target.classList.add("active"); // Ajoute la classe 'selected' sur l'élément choisi, s'il n'a pas été selected avant
-        }
-        $optionBtn.innerText = $colorElement.innerText + " ";
-      });
-    });
+    addInnerHtml(item);
+    selectColor();
 
     const $addToCartBtn = document.getElementById("add-to-cart");
     const $msg = document.getElementById("message");
@@ -97,10 +53,71 @@ fetch("http://localhost:3000/api/teddies/" + id)
     console.log("Error: ", error);
     $itemPage.innerHTML = `
       <div class="text-center m-2">
-      <p class="display-4">404</p>
-      <p class="h4">L'article que vous recherchez n'existe pas.</p>
-      <a href="../index.html">
-      <button class="btn btn-info m-3">Retour à l'accueil</button></a>
+        <p class="display-4">404</p>
+        <p class="h4">L'article que vous recherchez n'existe pas.</p>
+        <a href="../index.html">
+          <button class="btn btn-info m-3">Retour à l'accueil</button>
+        </a>
       </div>
       `;
   });
+
+// FUNCTIONS -----------------------------
+
+// récupère et liste toutes les options de couleur de chaque article
+function getColors(colors) {
+  let colorsFinal = "";
+  colors.forEach((color) => {
+    colorsFinal += `<li class="dropdown-item">${color}</li>`;
+  });
+
+  return colorsFinal;
+}
+
+// Ajouter la classe "selected" quand on selectionne une couleur, et déselectionne quand on choisit une autre couleur, ou qu'on re-clique sur la couleur en question pour le déselectionner
+function selectColor() {
+  const $colorElements = document.querySelectorAll(".colors-list li");
+  const $optionBtn = document.getElementById("option-btn");
+
+  $colorElements.forEach(($colorElement) => {
+    $colorElement.addEventListener("click", (e) => {
+      const isSelected = e.target.classList.contains("active"); // vérifie les elements qui ont été selectionnés
+
+      $colorElements.forEach((el) => el.classList.remove("active")); // desélectionne tout ce qui a été auparavant selectionné pour ne selectionner qu'un seul item à chaque fois
+
+      if (!isSelected) {
+        e.target.classList.add("active"); // Ajoute la classe 'selected' sur l'élément choisi, s'il n'a pas été selected avant
+      }
+      $optionBtn.innerText = $colorElement.innerText + " ";
+    });
+  });
+}
+
+// Montre le HTML correspondant pour chaque produit
+function addInnerHtml(item) {
+  let colors = getColors(item.colors);
+  $itemPage.innerHTML = `
+    <div class="row">
+      <img class="img-responsive product-img col-12 col-md-6" src="${
+        item.imageUrl
+      }" />
+      <div class="col-12 col-md-6">
+        <h1 class="mt-3 mt-md-1">${item.name}</h1>
+        <p class="price h5 m-5">${format(item.price)}</p>
+        <div class="dropdown m-5 colors-list">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="option-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Couleur
+            </button>
+            <ul class="dropdown-menu">${colors}</ul>
+        </div>
+        <button class="cart btn btn-info" id="add-to-cart">Ajouter au panier</button>
+        <p class="small m-3" id="message"></p>
+      </div>
+    </div>
+    <div class="row">
+      <h2 class="col-12 mt-4 mb-2 text-left h3">Description</h2>
+      <p class="text-justify p-3 mb-5">
+        ${item.description}
+      </p>
+    </div>`;
+}
