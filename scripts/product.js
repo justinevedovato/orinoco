@@ -14,42 +14,14 @@ fetch("http://localhost:3000/api/teddies/" + id)
     selectColor();
 
     const $addToCartBtn = document.getElementById("add-to-cart");
-    const $msg = document.getElementById("message");
 
-    // LOCAL STORAGE
-    let cart = {}; // Démarre avec un object vide
-    let retrievedItem = localStorage.getItem("cart");
-
-    // Vérifie si le Local Storage comporte des items, si oui, les ajoute à l'array "cart":
-    if (retrievedItem !== null) {
-      cart = JSON.parse(retrievedItem);
-    }
-
-    // Crée le produit, l'ajoute à l'array "cart" et sauvegarde l'array dans le Local Storage:
     $addToCartBtn.addEventListener("click", () => {
-      let product = {
-        id: item._id,
-        name: item.name,
-        price: item.price,
-        image: item.imageUrl,
-        quantity: 1,
-      };
-
-      // Vérifier si l'article est déjà dans le panier:
-      // Ici, la gestion de la quantité de chaque article a été mise en place pour approfondir l'exercice, mais ne sera pas prise en compte lors de l'envoi au serveur, qui n'a pas été prévu pour.
-      if (cart[item._id]) {
-        cart[item._id].quantity++; // Itérer la quantité si l'article est déjà dans le panier
-      } else {
-        cart[item._id] = product; // Ajouter l'article au local storage
-      }
-
-      // Sauvegarder le panier au localstorage
-      localStorage.setItem("cart", JSON.stringify(cart));
-      $msg.innerHTML = "L'article a bien été ajouté au panier";
+      addToCart(item);
     });
   })
-  // Affiche un message d'erreur si ID inexistant
+
   .catch((error) => {
+    // Affiche un message d'erreur si ID inexistant
     console.log("Error: ", error);
     $itemPage.innerHTML = `
       <div class="text-center m-2">
@@ -62,16 +34,16 @@ fetch("http://localhost:3000/api/teddies/" + id)
       `;
   });
 
-// FUNCTIONS -----------------------------
+// FONCTIONS -----------------------------
 
 // récupère et liste toutes les options de couleur de chaque article
 function getColors(colors) {
-  let colorsFinal = "";
+  let colorsList = "";
   colors.forEach((color) => {
-    colorsFinal += `<li class="dropdown-item">${color}</li>`;
+    colorsList += `<li class="dropdown-item">${color}</li>`;
   });
 
-  return colorsFinal;
+  return colorsList;
 }
 
 // Ajouter la classe "selected" quand on selectionne une couleur, et déselectionne quand on choisit une autre couleur, ou qu'on re-clique sur la couleur en question pour le déselectionner
@@ -93,7 +65,37 @@ function selectColor() {
   });
 }
 
-// Montre le HTML correspondant pour chaque produit
+// Crée le produit, l'ajoute à l'array "cart" et sauvegarde l'array dans le Local Storage:
+function addToCart(item) {
+  let cart = {}; // Démarre avec un object vide
+  let retrievedItem = localStorage.getItem("cart");
+  const $msg = document.getElementById("message");
+
+  // Vérifie si le Local Storage comporte des items, si oui, les ajoute à l'array "cart":
+  if (retrievedItem !== null) {
+    cart = JSON.parse(retrievedItem);
+  }
+  let product = {
+    id: item._id,
+    name: item.name,
+    price: item.price,
+    image: item.imageUrl,
+    quantity: 1,
+  };
+
+  // Vérifier si l'article est déjà dans le panier:
+  // (Ici, la gestion de la quantité de chaque article a été mise en place pour approfondir l'exercice, mais ne sera pas prise en compte lors de l'envoi au serveur, qui n'a pas été prévu pour).
+  if (cart[item._id]) {
+    cart[item._id].quantity++; // Itérer la quantité si l'article est déjà dans le panier
+  } else {
+    cart[item._id] = product; // Ajouter l'article au local storage
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  $msg.innerHTML = "L'article a bien été ajouté au panier";
+}
+
+// Montre le HTML correspondant au produit demandé
 function addInnerHtml(item) {
   let colors = getColors(item.colors);
   $itemPage.innerHTML = `
