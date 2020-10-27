@@ -1,6 +1,14 @@
 const $confirm = document.getElementById("confirm");
 
-let orderInfos = localStorage.getItem("orderInfos");
+let orderInfos = "";
+
+// Dans le cas où rien n'est récupéré depuis le local storage (refresh, etc...)
+if (!localStorage.getItem("orderInfos")) {
+  $confirm.innerHTML = `<p class="m-5"> Votre commande a déjà été validée.</p>`;
+}
+
+// Récupération des infos
+orderInfos = localStorage.getItem("orderInfos");
 let orderID = JSON.parse(orderInfos).orderId;
 let products = JSON.parse(orderInfos).products;
 
@@ -22,10 +30,7 @@ $confirm.innerHTML = `
   <p>A bientôt sur notre boutique !</p>
 `;
 
-// Vide le panier après la validation de la commande
+// Vide le panier après la validation de la commande, et supprime la réponse serveur stockée immédiatement après avoir récupéré les infos.
 localStorage.removeItem("cart");
-
-// Les informations de commande disparaissent du local storage quand on quitte la page
-window.addEventListener("beforeunload", () => {
-  localStorage.removeItem("orderInfos");
-});
+console.log(JSON.parse(orderInfos)); // Conservé pour la présentation de l'application
+localStorage.removeItem("orderInfos");

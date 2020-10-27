@@ -95,7 +95,7 @@ function removeItem(e) {
   if (!product.quantity) {
     delete retrievedItems[e.target.dataset.id];
   }
-  localStorage.setItem("cart", JSON.stringify(retrievedItems));
+  localStorage.setItem("cart", JSON.stringify(retrievedItems)); // mets à jour le panier
   location.reload(); // refresh la page
 }
 

@@ -1,6 +1,5 @@
 const $cartBtn = document.getElementById("cart-btn");
 const $itemCard = document.getElementById("item-card");
-const $addToCartBtn = document.getElementById("add-to-cart");
 
 // Récupérer les items depuis l'API et les intégrer au DOM
 fetch("http://localhost:3000/api/teddies")
@@ -20,9 +19,8 @@ fetch("http://localhost:3000/api/teddies")
         />
       </figure>
     <div class="card-body">
-    <h3 class="card-title">${item.name}</h3>
-    <p class="price">${format(item.price)}</p>
-      <!-- <button class="cart btn btn-info" id="add-to-cart">Ajouter au panier</button> -->
+      <h3 class="card-title">${item.name}</h3>
+      <p class="price">${format(item.price)}</p>
     </div>
   </a>`
       )
@@ -30,12 +28,12 @@ fetch("http://localhost:3000/api/teddies")
   })
   // Dans le cas où l'API est inaccessible:
   .catch((error) => {
-    console.error("Error: " + error);
+    console.error(error);
     $itemCard.innerHTML = `
       <div class="text-center m-2 col-12 bg-light p-4">
         <p class="h3 mb-3">404</p>
         <p class="h5">Notre collection est pour le moment indisponible, merci de réessayer ultérieurement.</p>
         <p class="h5">Veuillez nous excuser pour la gêne occasionnée.</p>
-        </div>
-      `;
+      </div>
+    `;
   });

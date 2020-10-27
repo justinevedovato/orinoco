@@ -10,7 +10,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
   .then((item) => {
     document.title = item.name + " - Orinoco"; // affiche le nom du produit dans le titre de la page
 
-    addInnerHtml(item);
+    addToDOM(item);
     selectColor();
 
     const $addToCartBtn = document.getElementById("add-to-cart");
@@ -36,7 +36,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
 
 // FONCTIONS -----------------------------
 
-// récupère et liste toutes les options de couleur de chaque article
+// Récupère et liste toutes les options de couleur de chaque article
 function getColors(colors) {
   let colorsList = "";
   colors.forEach((color) => {
@@ -46,7 +46,7 @@ function getColors(colors) {
   return colorsList;
 }
 
-// Ajouter la classe "selected" quand on selectionne une couleur, et déselectionne quand on choisit une autre couleur, ou qu'on re-clique sur la couleur en question pour le déselectionner
+// Ajoute la classe "selected" quand on selectionne une couleur, et déselectionne quand on choisit une autre couleur
 function selectColor() {
   const $colorElements = document.querySelectorAll(".colors-list li");
   const $optionBtn = document.getElementById("option-btn");
@@ -83,7 +83,6 @@ function addToCart(item) {
     quantity: 1,
   };
 
-  // Vérifier si l'article est déjà dans le panier:
   // (Ici, la gestion de la quantité de chaque article a été mise en place pour approfondir l'exercice, mais ne sera pas prise en compte lors de l'envoi au serveur, qui n'a pas été prévu pour).
   if (cart[item._id]) {
     cart[item._id].quantity++; // Itérer la quantité si l'article est déjà dans le panier
@@ -96,7 +95,7 @@ function addToCart(item) {
 }
 
 // Montre le HTML correspondant au produit demandé
-function addInnerHtml(item) {
+function addToDOM(item) {
   let colors = getColors(item.colors);
   $itemPage.innerHTML = `
     <div class="row">
